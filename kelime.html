@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İngilizce-Türkçe Kelime Kontrolü</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .word-pair {
+            margin-bottom: 10px;
+        }
+        .correct {
+            color: green;
+        }
+        .incorrect {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>İngilizce-Türkçe Kelime Kontrolü</h1>
+    <div id="word-list">
+        <!-- Word pairs will be inserted here by JavaScript -->
+    </div>
+    <button onclick="checkAnswers()">Kontrol Et</button>
+    <script>
+        const words = [
+            { english: "Hello", turkish: "Merhaba" },
+            { english: "Goodbye", turkish: "Güle güle" },
+            { english: "Please", turkish: "Lütfen" },
+            { english: "Thank you", turkish: "Teşekkürler" },
+            { english: "Yes", turkish: "Evet" },
+            { english: "No", turkish: "Hayır" },
+            { english: "Excuse me", turkish: "Afedersiniz" },
+            { english: "Sorry", turkish: "Üzgünüm" },
+            { english: "Help", turkish: "Yardım" },
+            { english: "Stop", turkish: "Dur" },
+            { english: "Start", turkish: "Başla" },
+            { english: "Friend", turkish: "Arkadaş" },
+            { english: "Family", turkish: "Aile" },
+            { english: "Home", turkish: "Ev" },
+            { english: "House", turkish: "Ev" },
+            { english: "Work", turkish: "İş" },
+            { english: "Job", turkish: "İş" },
+            { english: "School", turkish: "Okul" },
+            { english: "Teacher", turkish: "Öğretmen" },
+            { english: "Student", turkish: "Öğrenci" },
+            { english: "Food", turkish: "Yemek" },
+            { english: "Water", turkish: "Su" },
+            { english: "Drink", turkish: "İçmek" },
+            { english: "Eat", turkish: "Yemek" },
+            { english: "Breakfast", turkish: "Kahvaltı" },
+            { english: "Lunch", turkish: "Öğle yemeği" },
+            { english: "Dinner", turkish: "Akşam yemeği" },
+            { english: "Morning", turkish: "Sabah" },
+            { english: "Afternoon", turkish: "Öğleden sonra" },
+            { english: "Evening", turkish: "Akşam" },
+            { english: "Night", turkish: "Gece" },
+            { english: "Day", turkish: "Gün" },
+            { english: "Week", turkish: "Hafta" },
+            { english: "Month", turkish: "Ay" },
+            { english: "Year", turkish: "Yıl" },
+            { english: "Today", turkish: "Bugün" },
+            { english: "Tomorrow", turkish: "Yarın" },
+            { english: "Yesterday", turkish: "Dün" },
+            { english: "Now", turkish: "Şimdi" },
+            { english: "Later", turkish: "Daha sonra" },
+            { english: "Early", turkish: "Erken" },
+            { english: "Late", turkish: "Geç" },
+            { english: "First", turkish: "İlk" },
+            { english: "Last", turkish: "Son" },
+            { english: "Always", turkish: "Her zaman" },
+            { english: "Never", turkish: "Asla" },
+            { english: "Sometimes", turkish: "Bazen" },
+            { english: "Often", turkish: "Sık sık" },
+            { english: "Usually", turkish: "Genellikle" },
+            { english: "Rarely", turkish: "Nadiren" },
+            { english: "Money", turkish: "Para" },
+            { english: "Price", turkish: "Fiyat" },
+            { english: "Cheap", turkish: "Ucuz" },
+            { english: "Expensive", turkish: "Pahalı" },
+            { english: "Buy", turkish: "Satın almak" },
+            { english: "Sell", turkish: "Satmak" },
+            { english: "Open", turkish: "Açmak" },
+            { english: "Close", turkish: "Kapatmak" },
+            { english: "Left", turkish: "Sol" },
+            { english: "Right", turkish: "Sağ" },
+            { english: "Straight", turkish: "Düz" },
+            { english: "Turn", turkish: "Dönmek" },
+            { english: "Up", turkish: "Yukarı" },
+            { english: "Down", turkish: "Aşağı" },
+            { english: "Inside", turkish: "İçeride" },
+            { english: "Outside", turkish: "Dışarıda" },
+            { english: "Big", turkish: "Büyük" },
+            { english: "Small", turkish: "Küçük" },
+            { english: "Hot", turkish: "Sıcak" },
+            { english: "Cold", turkish: "Soğuk" },
+            { english: "Warm", turkish: "Ilık" },
+            { english: "Cool", turkish: "Serin" },
+            { english: "Happy", turkish: "Mutlu" },
+            { english: "Sad", turkish: "Üzgün" },
+            { english: "Angry", turkish: "Kızgın" },
+            { english: "Tired", turkish: "Yorgun" },
+            { english: "Bored", turkish: "Sıkılmış" },
+            { english: "Hungry", turkish: "Aç" },
+            { english: "Thirsty", turkish: "Susamış" },
+            { english: "Sick", turkish: "Hasta" },
+            { english: "Healthy", turkish: "Sağlıklı" },
+            { english: "Clean", turkish: "Temiz" },
+            { english: "Dirty", turkish: "Kirli" },
+            { english: "Beautiful", turkish: "Güzel" },
+            { english: "Ugly", turkish: "Çirkin" },
+            { english: "Good", turkish: "İyi" },
+            { english: "Bad", turkish: "Kötü" },
+            { english: "Easy", turkish: "Kolay" },
+            { english: "Difficult", turkish: "Zor" },
+            { english: "Important", turkish: "Önemli" },
+            { english: "Interesting", turkish: "İlginç" },
+            { english: "Boring", turkish: "Sıkıcı" },
+            { english: "Dangerous", turkish: "Tehlikeli" },
+            { english: "Safe", turkish: "Güvenli" },
+            { english: "Quick", turkish: "Hızlı" },
+            { english: "Slow", turkish: "Yavaş" },
+            { english: "New", turkish: "Yeni" },
+            { english: "Old", turkish: "Eski" },
+            { english: "Young", turkish: "Genç" }
+        ];
+
+        const wordList = document.getElementById('word-list');
+        words.forEach((word, index) => {
+            const wordPair = document.createElement('div');
+            wordPair.className = 'word-pair';
+            wordPair.innerHTML = `
+                <label>${word.english}</label>
+                <input type="text" id="word-${index}" data-correct="${word.turkish}">
+            `;
+            wordList.appendChild(wordPair);
+        });
+
+        function checkAnswers() {
+            words.forEach((word, index) => {
+                const input = document.getElementById(`word-${index}`);
+                if (input.value.toLowerCase() === word.turkish.toLowerCase()) {
+                    input.className = 'correct';
+                } else {
+                    input.className = 'incorrect';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
